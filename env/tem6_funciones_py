@@ -1,0 +1,13 @@
+
+
+def fuction1():
+    print("Hola soy la funcion 1")
+
+def fuction2():
+    print("Hola soy la funcion 2")
+
+    op=int(input("Numero: "))
+    if op==1:
+        fuction1()
+    else:
+        fuction2()

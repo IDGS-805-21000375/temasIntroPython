@@ -1,0 +1,10 @@
+
+ num1=8
+ num2=3.5
+ nombre="cris"
+ print(num1)
+ print(num2)
+ print(nombre)
+
+n1="7"
+n2="8"
