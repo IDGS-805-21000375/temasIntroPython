@@ -1,33 +1,13 @@
-
-Lista completa : xxxxxxxx
-Numeros pares de la lista  : aaaaaaa
-Numeros Impares de la lista : rrrrr
-'''
-
 n = int(input("Ingrese la cantidad de números: "))
-numeros = []
+numeros = [int(input(f"Ingrese el número {i+1}: ")) for i in range(n)]  # Usamos una comprensión de lista para generar la lista de números
 
-    
-for i in range(n):
-        numero = int(input(f"Ingrese el número {i+1}: "))
-        numeros.append(numero)
-
-    
 print("Lista completa:", numeros)
 
-    
-pares = []
-impares = []
+pares = [numero for numero in numeros if numero % 2 == 0]  # Usamos una comprensión de lista para filtrar los números pares
+impares = [numero for numero in numeros si numero % 2 != 0]  # Usamos una comprensión de lista para filtrar los números impares
 
-    
-for numero in numeros:
-        if numero % 2 == 0:
-            pares.append(numero)
-        else:
-            impares.append(numero)
-
-   
 print("Números pares:", pares)
 print("Números impares:", impares)
+
 
 

@@ -1,0 +1,5 @@
+Nombre del cliente: juan
+Cantidad de boletos comprados: 27
+**Descuento aplicado por tarjeta CINECO incluido.**
+Total pagado: $247.86
+------------------------------

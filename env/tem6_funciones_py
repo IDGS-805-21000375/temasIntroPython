@@ -1,13 +1,31 @@
+import os
 
+def funcion1():
+    os.system('cls' if os.name == 'nt' else 'clear')  # Esto asegura la compatibilidad con sistemas Unix.
+    print("Dame dos números: ")
+    num1 = int(input("Primer número: "))
+    num2 = int(input("Segundo número: "))
+    res = num1 + num2
+    print(f"La suma de {num1} + {num2} es {res}")
 
-def fuction1():
-    print("Hola soy la funcion 1")
+def funcion2():
+    print("Hola, soy la función 2")
 
-def fuction2():
-    print("Hola soy la funcion 2")
-
-    op=int(input("Numero: "))
-    if op==1:
-        fuction1()
+def run():
+    os.system('cls' if os.name == 'nt' else 'clear')  # Esto asegura la compatibilidad con sistemas Unix.
+    print("Menu de opciones")
+    print("1. Suma dos números")
+    print("2. Otra opción")
+    print("3. Salir")
+    opcion = int(input("Ingrese una opción: "))
+    if opcion == 1:
+        funcion1()
+    elif opcion == 2:
+        funcion2()
+    elif opcion == 3:
+        print("Saliendo...")
     else:
-        fuction2()
+        print("Opción no válida")
+
+if __name__ == "__main__":
+    run()

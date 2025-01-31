@@ -1,0 +1,122 @@
+import os
+from io import open
+
+def limpiarRegistro():
+    with open('registro.txt', 'w') as fichero: 
+        fichero.write("")
+
+def calcularBoletos(numP):
+    boletosP = 7
+    totalB = numP * boletosP
+    return totalB
+
+def registro(nomC, numB, total, tarjetaCINECO):
+    with open('registro.txt', 'a') as fichero: 
+        fichero.write(f"Nombre del cliente: {nomC}\n")
+        fichero.write(f"Cantidad de boletos comprados: {numB}\n")
+        if tarjetaCINECO:
+            fichero.write("**Descuento aplicado por tarjeta CINECO incluido.**\n")
+        fichero.write(f"Total pagado: ${total:.2f}\n")
+        fichero.write("-" * 30 + "\n")
+
+def calcularDescuento2(numB):
+    return numB * 12
+
+def calcularDescuento5(numB):
+    total = numB * 12
+    total -= total * 0.1
+    return total
+
+def calcularDescuentoMAS5(numB):
+    total = numB * 12
+    total -= total * 0.15
+    return total
+
+def aplicarDescuentoTarjeta(total):
+    descuento = total * 0.1
+    total -= descuento
+    return total
+
+def validarCantidadBoletos(numB, boletosPermitidos):
+    if numB > boletosPermitidos:
+        print(f"No puedes comprar más boletos que los permitidos ({boletosPermitidos}).")
+        return False
+    return True
+
+def sumarTotales():
+    total_general = 0
+    with open('registro.txt', 'r') as fichero:
+        for linea in fichero:
+            if "Total pagado:" in linea:
+                total_linea = float(linea.split("$")[1].strip())
+                total_general += total_linea
+    return total_general
+
+def bienvenida():
+    limpiarRegistro()
+    continuar_operacion = True
+    while continuar_operacion:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("Hola Bienvenidos a Cineco: ")
+        nomC = input("Nombre: ")
+        
+        while True:
+            try:
+                numP = int(input("Cantidad de personas: "))
+                if numP <= 0:
+                    print("La cantidad de personas debe ser mayor a 0.")
+                    continue
+                break
+            except ValueError:
+                print("Por favor, ingresa un número válido.")
+                continue
+
+        boletosPermitidos = calcularBoletos(numP)
+        print(f"El número máximo de boletos que se pueden comprar es: {boletosPermitidos}")
+        
+        while True:
+            try:
+                numB = int(input("Ingrese la cantidad de boletos: "))   
+                if validarCantidadBoletos(numB, boletosPermitidos):
+                    break
+                else:
+                    cambiar = input("¿Deseas cambiar la cantidad de boletos? (sí/no): ").strip().lower()
+                    if cambiar in ["no"]:
+                        continuar_operacion = False
+                        break
+            except ValueError:
+                print("Por favor, ingresa un número válido.")
+                continue
+
+        if not continuar_operacion:
+            break
+
+        if numB <= 2:
+            total = calcularDescuento2(numB)
+            print(f"El total es: ${total:.2f}")
+        elif numB <= 5:
+            total = calcularDescuento5(numB)
+            print(f"El total con 10% de descuento es: ${total:.2f}")
+        elif numB > 5:
+            total = calcularDescuentoMAS5(numB)
+            print(f"El total con 15% de descuento es: ${total:.2f}")
+
+        tarjetaCINECO = input("¿Tienes tarjeta CINECO? (sí/no): ").strip().lower() in ["sí", "si"]
+        if tarjetaCINECO:
+            total = aplicarDescuentoTarjeta(total)
+            print(f"Total con descuento adicional por tarjeta CINECO: ${total:.2f}")
+        
+        registro(nomC, numB, total, tarjetaCINECO)
+
+        continuar = input("¿Deseas realizar otra operación? (sí/no): ").strip().lower()
+        if continuar in ["no"]:
+            with open('registro.txt', 'r') as fichero:
+                print("\nResumen de ventas:")
+                print(fichero.read())
+                
+            total_general = sumarTotales()
+            print(f"\nEl total acumulado de todas las ventas es: ${total_general:.2f}")
+            continuar_operacion = False
+
+if __name__ == "__main__":
+    bienvenida()

@@ -1,0 +1,14 @@
+import math
+
+def calcular_distancia(punto1, punto2):
+    dx = punto2[0] - punto1[0]
+    dy = punto2[1] - punto1[1]
+    distancia = math.hypot(dx, dy)  
+    return distancia
+
+punto1 = (float(input("Ingresa el valor de x1 = ")), float(input("Ingresa el valor de y1 = ")))
+punto2 = (float(input("Ingresa el valor de x2 = ")), float(input("Ingresa el valor de y2 = ")))
+
+distancia = calcular_distancia(punto1, punto2)
+print("La distancia entre puntos es de ", distancia)
+
